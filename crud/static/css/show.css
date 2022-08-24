@@ -1,4 +1,6 @@
 table {
+    /* margin: 0pt auto;
+    align="center";*/
     border: 8px outset;
     border-radius: 10px;
     border-spacing: 10px;
@@ -11,4 +13,8 @@ th,
 td {
     padding: 5px;
     border: 1px solid;
+}
+
+h2 {
+    text-align: center;
 }
