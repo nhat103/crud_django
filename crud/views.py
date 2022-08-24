@@ -10,3 +10,9 @@ def show(request):
     users = Users.objects.all()
     template = loader.get_template('show.html')
     return HttpResponse(template.render({'users': users}))
+
+
+def insert(request):
+
+    template = loader.get_template('insert.html')
+    return HttpResponse(template.render())
