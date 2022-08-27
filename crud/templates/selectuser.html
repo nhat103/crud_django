@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>choose user</title>
+</header>
+
+<body>
+
+    <h1> select user update</h1>
+
+    <form action="/edit" method="GET">
+        <label for="fname">First name:</label>
+        <select name="username" id="cars">
+            {% for user in users %}
+            <option value="{{user.username}}">{{user.username}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>

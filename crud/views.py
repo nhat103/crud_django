@@ -9,8 +9,11 @@ from crud.models import Users
 
 def show(request):
     users = Users.objects.all()
-    template = loader.get_template('show.html')
-    return HttpResponse(template.render({'users': users}))
+    context = {
+        'users': users
+    }
+
+    return render(request, 'show.html', context)
 
 
 @csrf_exempt
@@ -27,5 +30,40 @@ def insert(request):
                      firstname=firstname, lastname=lastname, email=email)
         data.save()
 
-    template = loader.get_template('insert.html')
+    return render(request, 'insert.html')
+
+
+# update sql
+
+
+def choiceUser(request):
+    users = Users.objects.all()
+    context = {
+        'users': users
+    }
+    return render(request, 'selectuser.html', context)
+
+
+@csrf_exempt
+def update(request):
+    # show user choonse update
+    if request.method == "GET":
+        username = request.GET['username']
+        users = Users.objects.get(username=username)
+        context = {
+            'users': users
+        }
+        return render(request, 'edit.html', context)
+
+    # update
+    if request.method == "POST":
+        users.username = request.POST['username']
+        users.firstname = request.POST['firstname']
+        users.lastname = request.POST['lastname']
+        users.email = request.POST['email']
+
+        users.save()
+    template = loader.get_template('edit.html')
     return HttpResponse(template.render())
+
+# delete
