@@ -1,5 +1,5 @@
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader, RequestContext
 from django.http import HttpResponse
 from crud.models import Users
@@ -20,13 +20,12 @@ def show(request):
 def insert(request):
 
     if request.method == "POST":
-        id = request.POST['id']
         user_id = request.POST['user_id']
         username = request.POST['username']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         email = request.POST['email']
-        data = Users(id=id, user_id=user_id, username=username,
+        data = Users(user_id=user_id, username=username,
                      firstname=firstname, lastname=lastname, email=email)
         data.save()
 
@@ -46,6 +45,7 @@ def choiceUser(request):
 
 @csrf_exempt
 def update(request):
+    users = Users()
     # show user choonse update
     if request.method == "GET":
         username = request.GET['username']
@@ -57,13 +57,14 @@ def update(request):
 
     # update
     if request.method == "POST":
-        users.username = request.POST['username']
-        users.firstname = request.POST['firstname']
-        users.lastname = request.POST['lastname']
-        users.email = request.POST['email']
-
+        user_id = request.POST['user_id']
+        username = request.POST['username']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        email = request.POST['email']
+        users = Users(user_id=user_id, username=username,
+                      firstname=firstname, lastname=lastname, email=email)
         users.save()
-    template = loader.get_template('edit.html')
-    return HttpResponse(template.render())
+    return redirect('/info')
 
 # delete

@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Users(models.Model):
-    user_id = models.IntegerField()
-    username = models.CharField(max_length=25)
+    user_id = models.IntegerField(primary_key=True, serialize=True)
+    username = models.CharField(max_length=25, unique=True)
     firstname = models.CharField(max_length=25)
     lastname = models.CharField(max_length=25)
     email = models.EmailField(max_length=25)
