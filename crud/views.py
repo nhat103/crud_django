@@ -7,13 +7,13 @@ from crud.models import Users
 # Create your views here.
 
 
-def show(request):
+def info(request):
     users = Users.objects.all()
     context = {
         'users': users
     }
 
-    return render(request, 'show.html', context)
+    return render(request, 'info.html', context)
 
 
 @csrf_exempt
