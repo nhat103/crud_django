@@ -28,7 +28,7 @@
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{user.user_id}}</td>
+                <td>{{user.id}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
@@ -38,7 +38,7 @@
                     <a href="/edit/{{user.pk}}">Update</a>
                 </td>
                 <td>
-                    <a href="/remove/{{user.pk}}">Delete</a>
+                    <a href="/delete/{{user.pk}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}

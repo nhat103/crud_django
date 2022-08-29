@@ -20,7 +20,7 @@ def show(request):
 def insert(request):
 
     if request.method == "POST":
-        user_id = request.POST['user_id']
+        id = request.POST['id']
         username = request.POST['username']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
@@ -28,8 +28,9 @@ def insert(request):
         data = Users(user_id=user_id, username=username,
                      firstname=firstname, lastname=lastname, email=email)
         data.save()
-
-    return render(request, 'insert.html')
+        return redirect('/info')
+    else:
+        return render(request, 'insert.html')
 
 
 # update sql
@@ -55,16 +56,31 @@ def update(request):
         }
         return render(request, 'edit.html', context)
 
-    # update
+
+def edit(request, pk):
+    users = Users.objects.get(id=pk)
     if request.method == "POST":
-        user_id = request.POST['user_id']
+        redirect('/edit')
+        id = request.POST['id']
         username = request.POST['username']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         email = request.POST['email']
-        users = Users(user_id=user_id, username=username,
+        users = Users(id=id, username=username,
                       firstname=firstname, lastname=lastname, email=email)
         users.save()
-    return redirect('/info')
+        return redirect('/info')
+    else:
+        context = {
+            'users': users
+        }
+        return render(request, 'edit.html', context)
 
-# delete
+
+def deleteUser(request, pk):
+    if request.method == "POST":
+        users = Users.objects.get(id=pk)
+        users.delete()
+        return redirect('/info')
+    else:
+        return render(request, 'show.html')
