@@ -78,9 +78,12 @@ def edit(request, pk):
 
 
 def deleteUser(request, pk):
+    user = Users.objects.get(id=pk)
     if request.method == "POST":
-        users = Users.objects.get(id=pk)
-        users.delete()
+        user.delete()
         return redirect('/info')
     else:
-        return render(request, 'show.html')
+        context = {
+            'user': user
+        }
+        return render(request, 'delete.html', context)
